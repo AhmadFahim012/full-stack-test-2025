@@ -7,22 +7,24 @@ const router = Router();
  * Verify Supabase token
  * POST /api/auth/verify
  */
-router.post('/verify', async (req, res) => {
+router.post('/verify', async (req, res): Promise<void> => {
   try {
     const { token } = req.body;
 
     if (!token) {
-      return res.status(400).json({ 
+      res.status(400).json({ 
         error: 'Token is required' 
       });
+      return;
     }
 
     const { data: { user }, error } = await supabase.auth.getUser(token);
 
     if (error || !user) {
-      return res.status(401).json({ 
+       res.status(401).json({ 
         error: 'Invalid or expired token' 
       });
+      return
     }
 
     res.json({
@@ -45,23 +47,25 @@ router.post('/verify', async (req, res) => {
  * Get user profile
  * GET /api/auth/profile
  */
-router.get('/profile', async (req, res) => {
+router.get('/profile', async (req, res): Promise<void> => {
   try {
     const authHeader = req.headers.authorization;
     
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
-      return res.status(401).json({ 
+      res.status(401).json({
         error: 'Missing or invalid authorization header' 
       });
+      return;
     }
 
     const token = authHeader.substring(7);
     const { data: { user }, error } = await supabase.auth.getUser(token);
 
     if (error || !user) {
-      return res.status(401).json({ 
+       res.status(401).json({ 
         error: 'Invalid or expired token' 
       });
+      return;
     }
 
     res.json({
