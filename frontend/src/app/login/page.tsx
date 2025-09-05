@@ -27,8 +27,8 @@ export default function LoginPage() {
 
     const { error } = await signIn(email, password);
     
-    if (error) {
-      toast.error(error.message || 'Failed to sign in');
+    if (error as unknown) {
+      toast.error((error as { message?: string }).message || 'Failed to sign in');
     } else {
       toast.success('Signed in successfully');
       router.push('/chat');
@@ -39,7 +39,7 @@ export default function LoginPage() {
     const { error } = await signInWithGoogle();
     
     if (error) {
-      toast.error(error.message || 'Failed to sign in with Google');
+      toast.error((error as { message?: string }).message || 'Failed to sign in with Google');
     }
   };
 
@@ -124,7 +124,7 @@ export default function LoginPage() {
             </Button>
 
             <div className="text-center text-sm">
-              Don't have an account?{' '}
+              Don&apos;t have an account?{' '}
               <Link 
                 href="/signup" 
                 className="text-blue-600 hover:text-blue-500 font-medium"

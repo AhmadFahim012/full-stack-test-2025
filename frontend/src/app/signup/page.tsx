@@ -39,7 +39,7 @@ export default function SignupPage() {
     const { error } = await signUp(email, password);
     
     if (error) {
-      toast.error(error.message || 'Failed to create account');
+      toast.error((error as { message?: string }).message || 'Failed to create account');
     } else {
       toast.success('Account created successfully! Please check your email to verify your account.');
       router.push('/login');
@@ -50,7 +50,7 @@ export default function SignupPage() {
     const { error } = await signInWithGoogle();
     
     if (error) {
-      toast.error(error.message || 'Failed to sign in with Google');
+      toast.error((error as { message?: string }).message || 'Failed to sign in with Google');
     }
   };
 
