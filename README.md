@@ -1,4 +1,4 @@
-# **Full-Stack Developer Test – ChatGPT Clone**
+# **Full-Stack Developer Test – Turing Test**
 
 This test is a part of our hiring process at TuringTech for [fullstack positions](https://turingtechnologies.org/careers). It should take you between 5-6 hours depending on your experience.
 
